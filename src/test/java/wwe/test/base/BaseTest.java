@@ -1,24 +1,18 @@
 package wwe.test.base;
 
-import org.apache.log4j.Priority;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
 import org.apache.log4j.Logger;
 import wwe.constants.Constants;
 
-import java.util.concurrent.TimeUnit;
 
 
 public class BaseTest {
 
-    //    protected WebDriver driver;
     protected Logger logger;
 
     @BeforeSuite(alwaysRun = true)
@@ -41,22 +35,11 @@ public class BaseTest {
         logger.info("************************** Test Execution Finished ***********************************");
     }
 
-
-    @BeforeClass
-    protected void setup() {
-
-//        Constants.getInstance().driver.manage().window().maximize();
-//        Constants.getInstance().driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
+    @AfterClass
+    public void wrapUp() {
+        if (Constants.getInstance().driver != null) {
+            Constants.getInstance().driver.close();
+            Constants.getInstance().driver.quit();
+        }
     }
-
-    //
-//
-//    @AfterClass
-//    public void wrapUp() {
-//        if (Constants.getInstance().driver != null) {
-//            Constants.getInstance().driver.close();
-//            Constants.getInstance().driver.quit();
-//        }
-//    }
 }

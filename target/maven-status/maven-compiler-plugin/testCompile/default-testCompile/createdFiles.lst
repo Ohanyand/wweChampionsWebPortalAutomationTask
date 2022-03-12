@@ -1,0 +1,10 @@
+wwe\constants\Constants.class
+wwe\model\IMainUser.class
+wwe\logging\ConsoleLogger.class
+wwe\test\base\BaseTest.class
+wwe\test\UserTest.class
+wwe\pages\UserPage.class
+wwe\Authorization\IAuthentication.class
+wwe\model\IUser.class
+wwe\pages\LoginPage.class
+wwe\pages\BasePage.class

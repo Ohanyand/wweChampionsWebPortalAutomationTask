@@ -1,20 +1,19 @@
 package wwe.pages;
 
-
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import wwe.Authorization.IAuthentication;
 import wwe.constants.Constants;
 import wwe.model.IMainUser;
 
+
 import java.util.Random;
 
 
 public class LoginPage extends BasePage implements IAuthentication {
 
-//    @FindBy(css = ".right-sidebar-layout__header > div > button")
-//    private WebElement loginBtn;
+    @FindBy(css = ".right-sidebar-layout__header > div > button")
+    private WebElement loginBtn;
 
     @FindBy(css = "button[data-id='scopely_login']")
     private WebElement scopelyLogin;
@@ -28,45 +27,25 @@ public class LoginPage extends BasePage implements IAuthentication {
     @FindBy(id = "okta-signin-submit")
     private WebElement signIn;
 
-
     public LoginPage scopelyLogin() {
         this.scopelyLogin.click();
         return this;
     }
 
-//    public LoginPage loginForm() {
-//        this.loginBtn.click();
-//        return this;
-//    }
-
-
-
-    public LoginPage enterUsername(String username) throws InterruptedException {
-        Random rand = new Random();
-        Thread.sleep(rand.nextInt(300));
-
-        for (char ch: username.toCharArray()) {
-            this.username.sendKeys(ch+"");
-            Thread.sleep(rand.nextInt(300));
-        }
-
+    public LoginPage loginForm() {
+        this.loginBtn.click();
         return this;
     }
 
 
-    public LoginPage enterPassword(String password) throws InterruptedException {
-        Random rand = new Random();
-        Thread.sleep(rand.nextInt(300));
+    public LoginPage enterUsername(String username) {
+        this.username.sendKeys(username);
+        return this;
+    }
 
-        for (char ch: password.toCharArray()) {
-            this.password.sendKeys(ch+"");
-            Thread.sleep(rand.nextInt(300));
-        }
-        Thread.sleep(rand.nextInt(1000) + 500);
-        this.password.sendKeys(Keys.ENTER);
-//        this.password.submit();
-//                sendKeys(Keys.ENTER);
 
+    public LoginPage enterPassword(String password) {
+        this.password.sendKeys(password);
         return this;
     }
 
@@ -75,19 +54,22 @@ public class LoginPage extends BasePage implements IAuthentication {
         this.signIn.click();
     }
 
+
+
     @Override
-    public IMainUser logIn(String username, String password) {
+    public IMainUser logIn(String username, String password) throws InterruptedException {
         try {
-            this
-//                .loginForm()
-//                .scopelyLogin()
-                .enterUsername(username)
-                .enterPassword(password);
-//                .signIn();
-        } catch(Exception e) {
+            this.loginForm()
+                    .scopelyLogin()
+                    .enterUsername(username)
+                    .enterPassword(password)
+                    .signIn();
+        } catch (Exception e) {
             Constants.getInstance().logger.error(e.getMessage());
         }
-
+        Thread.sleep(3000);
+        this.closeModalWindow();
         return new UserPage();
     }
+
 }
