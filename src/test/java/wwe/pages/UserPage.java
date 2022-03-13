@@ -29,26 +29,28 @@ public class UserPage extends BasePage implements IMainUser {
     private WebElement logOutBtn;
 
     @Override
-    public void logOut() {
+    public void logOut() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        Thread.sleep(3000);
         wait.until(ExpectedConditions.elementToBeClickable(accountSettingBtn)).click();
-        this.logOutBtn.click();
-        wait.until(ExpectedConditions.stalenessOf(logOutBtn));
+        wait.until(ExpectedConditions.elementToBeClickable(logOutBtn)).click();
     }
 
     @Override
     public void changeAvatar() {
-        this.accountSettingBtn.click();
-        this.changeAvatarBtn.click();
-        this.freeAvatar.click();
-        this.applyAvatarChangesBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.elementToBeClickable(accountSettingBtn)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(changeAvatarBtn)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(freeAvatar)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(applyAvatarChangesBtn)).click();
     }
 
     @Override
     public void changeFrame() {
-        this.accountSettingBtn.click();
-        this.changeAvatarBtn.click();
-        this.removeFrameBtn.click();
-        this.applyAvatarChangesBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.elementToBeClickable(accountSettingBtn)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(changeAvatarBtn)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(removeFrameBtn)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(applyAvatarChangesBtn)).click();
     }
 }

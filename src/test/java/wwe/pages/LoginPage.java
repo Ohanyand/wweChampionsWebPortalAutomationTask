@@ -2,12 +2,9 @@ package wwe.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import wwe.Authorization.IAuthentication;
+import wwe.authorization.IAuthentication;
 import wwe.constants.Constants;
 import wwe.model.IMainUser;
-
-
-import java.util.Random;
 
 
 public class LoginPage extends BasePage implements IAuthentication {
@@ -50,7 +47,6 @@ public class LoginPage extends BasePage implements IAuthentication {
     }
 
     public void signIn() throws InterruptedException {
-        Thread.sleep(new Random().nextInt(300));
         this.signIn.click();
     }
 

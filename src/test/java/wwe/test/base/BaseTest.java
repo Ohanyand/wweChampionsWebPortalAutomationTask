@@ -4,6 +4,7 @@ package wwe.test.base;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import org.apache.log4j.Logger;
@@ -11,7 +12,7 @@ import wwe.constants.Constants;
 
 
 
-public class BaseTest {
+public abstract class BaseTest {
 
     protected Logger logger;
 
@@ -21,6 +22,10 @@ public class BaseTest {
         logger.info("************************** Test Execution Started ************************************");
     }
 
+    @BeforeMethod(alwaysRun = true)
+    public void beforeMethod(){
+        Constants.getInstance().driver.get(Constants.getInstance().url);
+    }
 
     @AfterSuite(alwaysRun = true)
     public void logResults(ITestContext context) {
